@@ -73,19 +73,19 @@ def loadPdfChunks(chunks, url, hf, db, index_name):
     es = Elasticsearch([url],http_compress=True)
 
     ## Parse the book if necessary
-    if not es.indices.exists(index=index_name):
-        print(f'\tThe index: {index_name} does not exist')
-        print(">> 2. Index the chunks into Elasticsearch")
+#    if not es.indices.exists(index=index_name):
+    print(f'\tThe index: {index_name} does not exist')
+    print(">> 2. Index the chunks into Elasticsearch")
 
-        print("url: ", url)
-        print("index_name", index_name)
+    print("url: ", url)
+    print("index_name", index_name)
 
-        elastic_vector_search = db.from_texts(chunks,
-                                              embedding=hf,
-                                              elasticsearch_url=url,
-                                              index_name=index_name
-                                              )
-    else:
-        print("\tLooks like the pdfs are already loaded, let's move on")
+    elastic_vector_search = db.from_texts(chunks,
+                                          embedding=hf,
+                                          elasticsearch_url=url,
+                                          index_name=index_name
+                                          )
+#    else:
+#        print("\tLooks like the pdfs are already loaded, let's move on")
 
 

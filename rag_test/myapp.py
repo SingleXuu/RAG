@@ -49,6 +49,7 @@ def get_text_chunks1(text):
 
 def handle_userinput(db, llm_chain_informed, user_question):
     similar_docs = db.similarity_search(user_question)
+
     print(f'The most relevant passage: \n\t{similar_docs[0].page_content}')
 
     ## 4. Ask Local LLM context informed prompt
@@ -59,6 +60,7 @@ def handle_userinput(db, llm_chain_informed, user_question):
     st.write(user_template.replace("{{MSG}}", user_question).replace("{{MSG1}}", " "), unsafe_allow_html=True)
     st.write(bot_template.replace("{{MSG}}", response).replace("{{MSG1}}", similar_docs[0].page_content),
              unsafe_allow_html=True)
+    return response
 
 
 def main():
@@ -79,8 +81,8 @@ def main():
     if user_question:
         handle_userinput(db, llm_chain_informed, user_question)
 
-    st.write(user_template.replace("{{MSG}}", "Hello, human").replace("{{MSG1}}", " "), unsafe_allow_html=True)
-    st.write(bot_template.replace("{{MSG}}", "Hello, robot").replace("{{MSG1}}", " "), unsafe_allow_html=True)
+    # st.write(user_template.replace("{{MSG}}", "Hello, human").replace("{{MSG1}}", " "), unsafe_allow_html=True)
+    # st.write(bot_template.replace("{{MSG}}", "Hello, robot").replace("{{MSG1}}", " "), unsafe_allow_html=True)
 
     # Add a side bar
     with st.sidebar:
